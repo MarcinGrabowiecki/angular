@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="plunker">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Czas pracy</title>
+        <!--script>document.write('<base href="' + document.location + '" />');</script-->
+        <link rel="stylesheet" href="css/style.css" />
+        <!--script data-require="angular.js@1.1.x" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js" data-semver="1.1.5"></script-->
+        <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular.js'></script>
+        <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular-animate.js'></script>
+        <script src="js/validator.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/modalController1.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+        <script src="//underscorejs.org/underscore-min.js"></script>
+    </head>
+    <body ng-controller="MainCtrl">
+        <p>Status: {{status}}!</p>
+        <div id="formularzPlanuPracy">
+            Początek planu pracy: <input type="text" ng-model="startPlanuPracy"></input><br/>
+            Koniec planu pracy: <input type="text" ng-model="koniecPlanuPracy"></input><br/>
+            Kierownik: <select ng-model="kierownik" ng-options="label(pracownik.imie, pracownik.nazwisko) for pracownik in kierownicy"></select>
+        </div>    
+        <br/>
+        <button type="button" class="btn btn-primary" ng-click="pobierzPlanyPracy()">
+            Otwórz plany pracy
+        </button>
+
+        <!--div ng-include src="'partials/modal.html'"></div-->
+        
+        <table class="table table-hover">
+            <tr ng-repeat="planPracy in planyPracy">
+                <td ng-style="{width: '140px'}">{{planPracy.pracownik}}</td>
+                <td ng-repeat="dzien in planPracy.dni track by $index">
+                    <input
+                        type="text"
+                        ng-style="{background:dzien.kolor, width:'80px'}"
+                        ng-model="dzien.godziny"
+                        ng-blur="blur(dzien)"
+                        ng-change="change(dzien)"
+                        ng-dblclick="otworzOknoSzczegolow($('#myModal'), planPracy, dzien)" />
+                </td>
+            </tr>
+        </table>
+
+
+                <button class="btn btn-primary" ng-click="otworzOknoSzczegolow('Jan Kowalski')">
+                    okienko
+                </button>
+                <div ng-include="'partials/modal1.html'"></div>
+    </body>
+</html>
+

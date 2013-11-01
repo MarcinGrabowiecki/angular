@@ -1,0 +1,50 @@
+<div ng-controller="ModalCtrl" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Edycja danych dla : {{selectedRow.imie}} {{selectedRow.nazwisko}}</h4>
+            </div>
+            <div class="modal-body">
+                {{test}} {{test1}}
+                
+                <table width="100%">
+                    <tr ng-repeat="pozycja in pozycje" class="repeat-item" style="background: {{editable==pozycja?'yellow':''}}">
+                        <td>{{$index+1}} </td>
+                        <td width="60%">{{pozycja.typ}}, {{pozycja.zakres}}</td>
+                        <td>
+                           <div class="btn-group" ng-show="mode!='edit'">
+                            <button type="button" class="btn btn-small  btn-warning" ng-click="remove(pozycja)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                             <button type="button" class="btn btn-small btn-default" ng-click="edit(pozycja)">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                           </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="modal-footer my-elm" ng-show="mode=='edit'">
+                <div class="input-group">
+                    <span>
+                        <select class="form-control" ng-model="editable.typ" style="width: 50%;" ng-options="m as m for m in typy"></select>
+                        <input class="form-control" type="text" ng-model="editable.zakres" style="width: 150px;"/>
+                    </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" ng-click="submit()">Zapisz</button>
+                    </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-warning" type="button" ng-click="mode='select';editable=null">Anuluj</button>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" style="margin-right: 50%" ng-click="add()">Dodaj</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="modalCancel()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

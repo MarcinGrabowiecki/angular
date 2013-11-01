@@ -1,0 +1,40 @@
+<div ng-controller="ModalInstanceCtrl">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h4>Okno szczegółów czasu pracy : <i>{{row.imie}} {{row.nazwisko}}</i></h4>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li ng-repeat="item in items">
+                    {{item==wybrany?">EDIT>":""}}
+                    <a ng-click="select(item)"><b>typ:</b>{{item.typ}}, zakres: {{item.zakres}}</a>
+                    <button class="btn" ng-click="remove(item)">-</button>
+                    <button type="button" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-star"></span> Star</button>
+                    
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+        
+            <div class="animate-switch-container" ng-switch on="akcja">
+                <div ng-switch-when="edit">
+                    <select ng-model="wybrany.typ" class="selectpicker" data-style="btn-primary" style="width:150px">
+                        <option ng-repeat="obj in typyAktywnosci" value="{{obj}}">{{obj}}</option>
+                    </select>
+                    <input class="input" ng-model="wybrany.zakres" type="text">
+                    <button class="btn btn-primary" ng-click="save()">Zapisz</button>
+                    <button class="btn btn-warning" ng-click="cancel()">Anuluj</button>
+                </div>
+                <div ng-switch-when="cancel">
+                    <button class="btn btn-info" ng-click="add()">Dodaj</button>
+                </div>
+                <div ng-switch-default>:(</div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="windowOk()">Zapisz</button>
+            <button class="btn btn-warning" ng-click="windowCancel()">Anuluj</button>
+        </div>
+    </script>
+</div>
